@@ -8,12 +8,21 @@ class CURRENCY_BANK(BANK):
         
         
     def welcome_english(self):
+        '''
+
+
+
+        '''
         
         name=self.name
         print(f'Hello {name} Welcome to our Bank, PLUTUS, We appreciate your opening account')
         
     #amount-->chan  hezar toman mikhad b dolar tabdil kone
     def change_money(self,amount):
+        '''
+
+
+        '''
         if self.wrong_attempt==3:
             print('karte shoma masdood mibashad')
             return 
