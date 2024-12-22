@@ -11,11 +11,20 @@ class BANK:
         self.transfer_history=[]
 
     def welcome(self):
+        '''
+
+
+        '''
 
         thisname=self.name
         print(f'salam  moshtarie aziz , {thisname} khosh amadid b banke Plutus')
 
     def show_currency(self):
+        '''
+
+
+        '''
+        
         if self.wrong_attempt==3:
             print('karte shoma masdood mibashad')
             return 
@@ -35,6 +44,11 @@ class BANK:
             print('ramz doros nemibashad')
         
     def deposit(self,amount):
+        '''
+
+
+        '''
+        
         if self.wrong_attempt==3:
             print('karte shoma masdood mibashad')
             return 
@@ -54,6 +68,11 @@ class BANK:
             print('ramze vared shdoe doros nmiabshad')
         
     def ATM(self,amount):
+        '''
+
+
+        '''
+        
         if self.wrong_attempt==3:
             print('karte shoma masdood mibashad')
             return 
@@ -78,6 +97,11 @@ class BANK:
             
             
     def change_password(self):
+        '''
+
+
+        '''
+        
         if self.wrong_attempt==3:
             print('karte shoma masdood mibashad')
             return 
@@ -103,24 +127,12 @@ class BANK:
         else:
             self.wrong_attempt=self.wrong_attempt+1
             print('ramze vard shdoe doros nemibashad')
-
-    def unblock(self):
-        #------- if if if if 
-        #local host
-        #ip 
-        #kodom computer
-        #user pass
-        admin_password=int(input('lotfan ramze dastressie kolie hesab haro vared namaeed:'))
-        
-        if admin_password==ADMIN_PASSWORD:
-            self.wrong_attempt=0
-            print('hesabe morede nazar ba moafaghiat az masdoodiat raha shod')
-
-        else:
-            print('ramz doros nemibashad')
-        
-        
     def show_history(self):
+        '''
+
+
+        '''
+        
         if self.wrong_attempt==3:
             print('karte shoma masdood mibashad')
             return 
@@ -149,6 +161,11 @@ class BANK:
             
     
     def calculation(self):
+        '''
+
+
+        '''
+        
         if self.wrong_attempt==3:
             print('karte shoma masdood mibashad')
             return 
@@ -188,6 +205,29 @@ class BANK:
         else:
             self.wrong_attempt=self.wrong_attempt+1
             print('ramze vard shdoe doros nemibashad')
+            
+    def unblock(self):
+        '''
+
+
+        '''
+        
+        #------- if if if if 
+        #local host
+        #ip 
+        #kodom computer
+        #user pass
+        admin_password=int(input('lotfan ramze dastressie kolie hesab haro vared namaeed:'))
+        
+        if admin_password==ADMIN_PASSWORD:
+            self.wrong_attempt=0
+            print('hesabe morede nazar ba moafaghiat az masdoodiat raha shod')
+
+        else:
+            print('ramz doros nemibashad')
+        
+        
+    
 
 
 
