@@ -22,6 +22,10 @@ class CRYPTO_CURRENCY_BANK(CURRENCY_BANK):
     #b dollar
     
     def change_crypto(self,amount):
+        '''
+
+
+        '''
         if self.wrong_attempt==3:
             print('karte shoma masdood mibashad')
             return 
