@@ -2,229 +2,195 @@ ADMIN_PASSWORD=8000
 
 class BANK:
 
-    def __init__(self,name,age,current,PIN):
-        self.name=name #name beriz tooye self.name
-        self.age=age
-        self.balance=current
-        self.PIN=PIN
-        self.wrong_attempt=0
-        self.transfer_history=[]
+    def __init__(self, name, age, current, PIN):
+        self.name = name
+        self.age = age
+        self.balance = current
+        self.PIN = PIN
+        self.wrong_attempt = 0
+        self.transfer_history = []
 
     def welcome(self):
         '''
 
 
         '''
-
-        thisname=self.name
-        print(f'salam  moshtarie aziz , {thisname} khosh amadid b banke Plutus')
+        thisname = self.name
+        print(f'Hello dear customer, {thisname}, welcome to Plutus Bank')
 
     def show_currency(self):
         '''
 
 
         '''
-        
-        if self.wrong_attempt==3:
-            print('karte shoma masdood mibashad')
+        if self.wrong_attempt == 3:
+            print('Your card is blocked')
             return 
-        
-        password=int(input('Lotfan ramzetoon ro vared namaeed:'))
-        if password==self.PIN: 
-            self.wrong_attempt=0
-            if self.balance-100>=0:
-                self.balance=self.balance-100
-                current=self.balance
-                print('Moshtarie aziz mojodie hesab shoma hast :')
+
+        password = int(input('Please enter your PIN: '))
+        if password == self.PIN:
+            self.wrong_attempt = 0
+            if self.balance - 100 >= 0:
+                self.balance = self.balance - 100
+                current = self.balance
+                print('Dear customer, your account balance is:')
                 print(f'{current}')
             else:
-                print('shoma moojodoi mojoodi ham nadarid')
+                print('You do not have sufficient balance')
         else:
-            self.wrong_attempt=self.wrong_attempt+1
-            print('ramz doros nemibashad')
-        
-    def deposit(self,amount):
+            self.wrong_attempt += 1
+            print('Incorrect PIN')
+
+    def deposit(self, amount):
         '''
 
 
         '''
-        
-        if self.wrong_attempt==3:
-            print('karte shoma masdood mibashad')
+        if self.wrong_attempt == 3:
+            print('Your card is blocked')
             return 
-        
-        password=int(input('Lotfan ramzetoon ro vared namaeed:'))
-        if password==self.PIN: 
-            self.wrong_attempt=0
-            self.balance=self.balance + amount
-            
+
+        password = int(input('Please enter your PIN: '))
+        if password == self.PIN:
+            self.wrong_attempt = 0
+            self.balance += amount
+
             self.transfer_history.append(f'+ {amount}')
 
-
-            print('Variz ba moafaghiat anjam shod')
-            print(f'Mojoodie shoma : {self.balance}')
+            print('Deposit was successful')
+            print(f'Your balance: {self.balance}')
         else:
-            self.wrong_attempt=self.wrong_attempt+1
-            print('ramze vared shdoe doros nmiabshad')
-        
-    def ATM(self,amount):
+            self.wrong_attempt += 1
+            print('The entered PIN is incorrect')
+
+    def ATM(self, amount):
         '''
 
 
         '''
-        
-        if self.wrong_attempt==3:
-            print('karte shoma masdood mibashad')
+        if self.wrong_attempt == 3:
+            print('Your card is blocked')
             return 
-        
-        password=int(input('Lotfan ramzetoon ro vared namaeed:'))
-        if password==self.PIN:
-            self.wrong_attempt=0
-            #if self.balance-amount>=5000:
-            if self.balance-amount>=0:
-                
-                
+
+        password = int(input('Please enter your PIN: '))
+        if password == self.PIN:
+            self.wrong_attempt = 0
+            if self.balance - amount >= 0:
                 self.transfer_history.append(f'- {amount}')
-                
-                self.balance=self.balance-amount
-                print('bardashte shoma ba moafaghiat anjam shod')
-                print(f'mojodie shoam bad az bardahst hast:{self.balance} ')
+                self.balance = self.balance - amount
+                print('Your withdrawal was successful')
+                print(f'Your balance after withdrawal: {self.balance}')
             else:
-                print('mojoodie shoma kafi nemibashad')
+                print('Insufficient balance')
         else:
-            self.wrong_attempt=self.wrong_attempt+1
-            print('ramze vard shdoe doros nemibashad')
-            
-            
+            self.wrong_attempt += 1
+            print('The entered PIN is incorrect')
+
     def change_password(self):
         '''
 
 
         '''
-        
-        if self.wrong_attempt==3:
-            print('karte shoma masdood mibashad')
+        if self.wrong_attempt == 3:
+            print('Your card is blocked')
             return 
-        
-        password=int(input('Lotfan ramzetoon ro vared namaeed:'))
-        if password==self.PIN: 
-            self.wrong_attempt=0
-            new_password=input('ramze jadid ra vared konid:')
-            
-            if len(new_password)==4:
-                new_new_password=input('ramze jadide khod ra baraye taeed dobare vared konid:')
-                
-                if new_password==new_new_password:
-                    self.PIN=int(new_password)
-                    print('ramze shoma ba moafaghiat taghir kard')
- 
+
+        password = int(input('Please enter your PIN: '))
+        if password == self.PIN:
+            self.wrong_attempt = 0
+            new_password = input('Enter your new PIN: ')
+
+            if len(new_password) == 4:
+                new_new_password = input('Re-enter your new PIN for confirmation: ')
+
+                if new_password == new_new_password:
+                    self.PIN = int(new_password)
+                    print('Your PIN was successfully changed')
+
                 else:
-                    print('ramzha yeksna nis, mojadadan emtehan farmaeed')
-                
+                    print('The PINs do not match, please try again')
+
             else:
-                print('ramze shoam bish az 4 ragham hast, mojadad az aval emtehan konid')
-  
+                print('Your PIN is more than 4 digits, please try again')
+
         else:
-            self.wrong_attempt=self.wrong_attempt+1
-            print('ramze vard shdoe doros nemibashad')
+            self.wrong_attempt += 1
+            print('The entered PIN is incorrect')
+
     def show_history(self):
         '''
 
 
         '''
-        
-        if self.wrong_attempt==3:
-            print('karte shoma masdood mibashad')
+        if self.wrong_attempt == 3:
+            print('Your card is blocked')
             return 
-        password=int(input('Lotfan ramzetoon ro vared namaeed:'))
-        if password==self.PIN:
-            self.wrong_attempt=0
-            
-            
-            if len(self.transfer_history)==0:
-                print('shoma tarakoneshi nadashtid')
-                
+
+        password = int(input('Please enter your PIN: '))
+        if password == self.PIN:
+            self.wrong_attempt = 0
+
+            if len(self.transfer_history) == 0:
+                print('You have no transactions')
             else:
                 print('=========================')
-                print('----Tarakonesh haye shoma-----')
-                
+                print('-----Your Transactions-----')
                 for i in self.transfer_history:
                     print(i)
                     print('----')
-                
                 print('=========================')
-                
-            
+
         else:
-            self.wrong_attempt=self.wrong_attempt+1
-            print('ramze vard shdoe doros nemibashad')
-            
-    
+            self.wrong_attempt += 1
+            print('The entered PIN is incorrect')
+
     def calculation(self):
         '''
 
 
         '''
-        
-        if self.wrong_attempt==3:
-            print('karte shoma masdood mibashad')
+        if self.wrong_attempt == 3:
+            print('Your card is blocked')
             return 
-        password=int(input('Lotfan ramzetoon ro vared namaeed:'))
-        if password==self.PIN:
-            self.wrong_attempt=0
-            
 
-            positive_values=[]
-            negative_values=[]
+        password = int(input('Please enter your PIN: '))
+        if password == self.PIN:
+            self.wrong_attempt = 0
+
+            positive_values = []
+            negative_values = []
 
             for i in self.transfer_history:
-                
-                pos_or_neg=i[0]
-                
-
-                if pos_or_neg=='+':
+                pos_or_neg = i[0]
+                if pos_or_neg == '+':
                     positive_values.append(int(i[2:]))
-
-                if pos_or_neg=='-':
+                if pos_or_neg == '-':
                     negative_values.append(int(i[2:]))
-                    
 
-                    
-            all_deposition=sum(positive_values)
-            all_atm=sum(negative_values)
-            
-            
+            all_deposition = sum(positive_values)
+            all_atm = sum(negative_values)
+
             print('------------')
-            
-            print('Majmooe varize shoma : ',all_deposition)
-            
+            print('Total Deposits: ', all_deposition)
             print('------------')
-            
-            print('Majmooe bardashte shoma:',all_atm)
-            
+            print('Total Withdrawals:', all_atm)
+
         else:
-            self.wrong_attempt=self.wrong_attempt+1
-            print('ramze vard shdoe doros nemibashad')
-            
+            self.wrong_attempt += 1
+            print('The entered PIN is incorrect')
+
     def unblock(self):
         '''
-
-
         '''
-        
-        #------- if if if if 
-        #local host
-        #ip 
-        #kodom computer
-        #user pass
-        admin_password=int(input('lotfan ramze dastressie kolie hesab haro vared namaeed:'))
-        
-        if admin_password==ADMIN_PASSWORD:
-            self.wrong_attempt=0
-            print('hesabe morede nazar ba moafaghiat az masdoodiat raha shod')
+        admin_password = int(input('Please enter the admin access password: '))
+
+        if admin_password == ADMIN_PASSWORD:
+            self.wrong_attempt = 0
+            print('The requested account has been successfully unblocked')
 
         else:
-            print('ramz doros nemibashad')
+            print('Incorrect password')
+
         
         
     
