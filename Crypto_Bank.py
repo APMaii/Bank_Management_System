@@ -4,79 +4,59 @@ def crypto_update():
     
     
 class CRYPTO_CURRENCY_BANK(CURRENCY_BANK):
-    #boro az bank yek class jadid bsaz
-    #name,age,current,PIn chizae bode k too clas avali mikahste
-    #behehs chizi ezafe koni
-    #harchizi k hasto jadid mikhay ro too __init___
-    #harchi kghadim boode ro to super()
+    # Create a new class from the bank
+    # name, age, current, PIN are the attributes required in the base class
+    # Add any new attributes here
+    # Existing attributes are initialized with super()
     
-    def __init__(self,name,age,current,PIN,currency_id,crypto_id):
-        super().__init__(name,age,current,PIN,currency_id)
+    def __init__(self, name, age, current, PIN, currency_id, crypto_id):
+        super().__init__(name, age, current, PIN, currency_id)
         
-        self.crypto_id=crypto_id
-        
-        self.crypto_balance=0 #ppoole arzi
-        
+        self.crypto_id = crypto_id
+        self.crypto_balance = 0  # Cryptocurrency balance
 
-    #amount-->chan  hezar toman mikhad b dolar tabdil kone
-    #b dollar
+    # amount --> How many units are to be converted to dollars
+    # Converts to dollars
     
-    def change_crypto(self,amount):
+    def change_crypto(self, amount):
         '''
-
-
+        Handles cryptocurrency conversion
         '''
-        if self.wrong_attempt==3:
-            print('karte shoma masdood mibashad')
+        if self.wrong_attempt == 3:
+            print('Your card is blocked')
             return 
-        password=int(input('Lotfan ramzetoon ro vared namaeed:'))
-        if password==self.PIN:
-            self.wrong_attempt=0
+        
+        password = int(input('Please enter your PIN:'))
+        if password == self.PIN:
+            self.wrong_attempt = 0
             
-
-            if self.currency_balance>=amount:
-
+            if self.currency_balance >= amount:
+                crypto_type = input('Which cryptocurrency would you like to convert to? :')
+                crypto_list = crypto_update()
                 
-                crypto_type=input('Shoma mikhahid b che ramz arzi pool tbaidl konid? :')
-                
-                
-                crypto_list=crypto_update()
-                
-                if crypto_type=='bitcoin':
-                    self.currency_balance=self.currency_balance - amount
-                    crypto_amount=crypto_list[0]
+                if crypto_type == 'bitcoin':
+                    self.currency_balance -= amount
+                    crypto_amount = crypto_list[0]
                     
-                elif crypto_type=='etherium':
-                    self.currency_balance=self.currency_balance - amount
-                    crypto_amount=crypto_list[1]
+                elif crypto_type == 'etherium':
+                    self.currency_balance -= amount
+                    crypto_amount = crypto_list[1]
                     
-                elif crypto_type=='solana':
-                    self.currency_balance=self.currency_balance - amount
-                    crypto_amount=crypto_list[2]
-                    
-                    
-                    
-                #-------
-                
-                
+                elif crypto_type == 'solana':
+                    self.currency_balance -= amount
+                    crypto_amount = crypto_list[2]
                 else:
-                    print('ramz arz mojod nemibashad')
-                    
-                    
+                    print('The cryptocurrency is not available')
+                    return
                 
-                #----------
-                self.crypto_balance=amount/crypto_amount+self.crypto_balance
+                # Update cryptocurrency balance
+                self.crypto_balance = amount / crypto_amount + self.crypto_balance
                 
-                print(f'Ba moafaghiat {amount} dollar b {amount/crypto_amount} bitcoin tabdil shod')
-                print(f'mojodie arze shoma : {self.crypto_balance} bitcoin')
-                
-                    
- 
+                print(f'Successfully converted {amount} dollars to {amount / crypto_amount} {crypto_type}')
+                print(f'Your cryptocurrency balance is: {self.crypto_balance} {crypto_type}')
             else:
-                print('motasefane mojodi kafinemibashad')
-
-            
+                print('Unfortunately, the balance is insufficient')
         else:
-            self.wrong_attempt=self.wrong_attempt+1
-            print('ramze vard shdoe doros nemibashad')
+            self.wrong_attempt += 1
+            print('The entered PIN is incorrect')
             
