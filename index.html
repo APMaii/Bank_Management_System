@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plutus Bank</title>
+
+    <!-- CSS Styles -->
+    <style>
+        /* Reset styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(to bottom right, #3498db, #2ecc71);
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Preloader styles */
+        .preloader {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom right, #2c3e50, #34495e);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            flex-direction: column;
+            text-align: center;
+        }
+
+        .preloader-logo {
+            width: 120px;
+            height: 120px;
+            border: 5px solid white;
+            border-top: 5px solid transparent;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        .preloader-text {
+            margin-top: 20px;
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+            animation: fadeIn 2s infinite;
+        }
+
+        @keyframes spin {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes fadeIn {
+            0%, 100% {
+                opacity: 0.2;
+            }
+            50% {
+                opacity: 1;
+            }
+        }
+
+        /* Hide main content initially */
+        .container {
+            display: none;
+        }
+
+        /* Background text animation */
+        .background-text {
+            position: absolute;
+            top: 50%;
+            left: 100%;
+            transform: translate(-50%, -50%);
+            font-size: 3rem;
+            font-weight: bold;
+            color: rgba(255, 255, 255, 0.2);
+            white-space: nowrap;
+            animation: moveText 10s linear infinite;
+            text-transform: uppercase;
+        }
+
+        @keyframes moveText {
+            from {
+                left: 100%;
+            }
+            to {
+                left: -100%;
+            }
+        }
+
+        .container {
+            background-color: #fff;
+            border-radius: 15px;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+            width: 400px;
+            max-width: 90%;
+            padding: 20px 30px;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .container img {
+            width: 100%;
+            max-width: 150px;
+            margin-bottom: 20px;
+            border-radius: 50%;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-size: 28px;
+        }
+
+        p {
+            font-size: 16px;
+            color: #7f8c8d;
+            margin-bottom: 25px;
+        }
+
+        .buttons-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        button {
+            background: linear-gradient(to right, #2980b9, #6dd5fa);
+            color: white;
+            padding: 12px;
+            font-size: 16px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.2s ease, background 0.3s ease;
+            font-weight: bold;
+        }
+
+        button:hover {
+            background: linear-gradient(to right, #2575fc, #6a11cb);
+            transform: translateY(-3px);
+        }
+
+        #output {
+            margin-top: 30px;
+            padding: 15px;
+            background-color: #ecf0f1;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            font-size: 18px;
+            color: #2c3e50;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Preloader -->
+    <div class="preloader" id="preloader">
+        <div class="preloader-logo"></div>
+        <div class="preloader-text">Welcome to Plutus Bank</div>
+    </div>
+
+    <!-- Background text -->
+    <div class="background-text">Future Money Coming for You</div>
+
+    <!-- Main container -->
+    <div class="container">
+        <!-- Image -->
+        <img src="PLUTUS.jpg" alt="Plutus Logo">
+        
+        <h1>Welcome to Plutus Bank</h1>
+        <p>Select an action below to proceed.</p>
+        
+        <!-- Buttons -->
+        <div class="buttons-container">
+            <button onclick="welcome()">Welcome</button>
+            <button onclick="showCurrency()">Show Balance</button>
+            <button onclick="deposit()">Deposit</button>
+        </div>
+
+        <!-- Output area -->
+        <div id="output">Please select an action.</div>
+    </div>
+
+    <script>
+        // Hide preloader and show main content after a delay
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('preloader').style.display = 'none';
+                document.querySelector('.container').style.display = 'block';
+            }, 3000); // Delay of 3 seconds
+        });
+
+        // Functions to interact with the backend
+        async function welcome() {
+            const response = await fetch('/welcome');
+            const data = await response.json();
+            document.getElementById('output').innerText = data.message;
+        }
+
+        async function showCurrency() {
+            const password = prompt("Enter PIN:");
+            const response = await fetch('/show_currency', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ password: parseInt(password) })
+            });
+            const data = await response.json();
+            document.getElementById('output').innerText = data.message;
+        }
+
+        async function deposit() {
+            const password = prompt("Enter PIN:");
+            const amount = prompt("Enter Amount:");
+            const response = await fetch('/deposit', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ password: parseInt(password), amount: parseFloat(amount) })
+            });
+            const data = await response.json();
+            document.getElementById('output').innerText = data.message;
+        }
+    </script>
+
+</body>
+</html>
